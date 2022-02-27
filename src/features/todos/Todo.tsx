@@ -1,6 +1,6 @@
 import { useAppDispatch } from 'app/hooks';
 import { Todo as TodoModel } from './models';
-import { doTodo, undoTodo } from './todosSlice';
+import { doTodo, removeTodo, undoTodo } from './todosSlice';
 
 interface TodoProps {
   todo: TodoModel;
@@ -18,6 +18,9 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
         checked={todo.completed}
         onChange={e => dispatch(e.target.checked ? doTodo(todo.id) : undoTodo(todo.id))}
       />
+      <button type="button" onClick={() => dispatch(removeTodo(todo.id))}>
+        🗑️
+      </button>
     </span>
   );
 };
