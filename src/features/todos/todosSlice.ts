@@ -1,6 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { Todo } from './models';
+import { RootState } from 'app/store';
+import { NewTodo, Todo } from './models';
 
 export interface TodosState {
   todos: Todo[];
@@ -19,8 +19,8 @@ export const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo: (state, action: PayloadAction<Omit<Todo, 'id'>>) => {
-      state.todos.push({ id: nanoid(), ...action.payload });
+    addTodo: (state, action: PayloadAction<NewTodo>) => {
+      state.todos.push({ ...action.payload, id: nanoid(), completed: false });
     },
     removeTodo: (state, action: PayloadAction<string>) => {
       state.todos = state.todos.filter(todo => todo.id !== action.payload);
